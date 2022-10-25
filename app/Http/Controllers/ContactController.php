@@ -11,12 +11,18 @@ class ContactController extends Controller
     public function submit(ContactRequest $request)
     {
         $contact = new Contact();
-        $contact->name->$request->input('name');
-        $contact->email->$request->input('email');
-        $contact->message->$request->input('message');
+        $contact->name = $request->input('name');
+        $contact->email = $request->input('email');
+        $contact->message = $request->input('message');
 
         $contact->save();
 
-        return redirect()->route('/contact');
+        return redirect('/contact')->with('success', 'Message was successfully sent');
+    }
+
+    public function contact()
+    {
+        $data = Contact::all();;
+        return view('contact', ['data' => Contact::all() ]);
     }
 }
